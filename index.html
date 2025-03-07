@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple To-Do List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 400px;
+            margin: auto;
+            text-align: center;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        button {
+            cursor: pointer;
+            margin: 2px;
+        }
+        footer {
+            margin-top: 500px;
+            padding: 10px;
+            background-color:rgb(22, 5, 5);
+            text-align: center;
+            color:white;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>To-Do List</h2>
+    <input type="text" id="task" placeholder="Enter task">
+    <input type="date" id="dueDate">
+    <button onclick="addTask()">Add Task</button>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Task</th>
+                <th>Due Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="taskList"></tbody>
+    </table>
+    <footer>
+        <p>© 2025 Kruthika. All rights reserved.</p>
+    </footer>
+    <script>
+        function addTask() {
+            let task = document.getElementById("task").value;
+            let dueDate = document.getElementById("dueDate").value;
+
+            if (task === "" || dueDate === "") {
+                alert("Please enter both task and due date!");
+                return;
+            }
+
+            let table = document.getElementById("taskList");
+            let row = table.insertRow();
+            row.insertCell(0).innerText = task;
+            row.insertCell(1).innerText = dueDate;
+
+            let actions = row.insertCell(2);
+            let completeBtn = document.createElement("button");
+            completeBtn.innerText = "Complete";
+            completeBtn.onclick = function () {
+                row.style.textDecoration = "line-through";
+            };
+
+            let deleteBtn = document.createElement("button");
+            deleteBtn.innerText = "Delete";
+            deleteBtn.onclick = function () {
+                table.deleteRow(row.rowIndex - 1);
+            };
+
+            actions.appendChild(completeBtn);
+            actions.appendChild(deleteBtn);
+
+            document.getElementById("task").value = "";
+            document.getElementById("dueDate").value = "";
+        }
+    </script>
+
+</body>
+</html>
